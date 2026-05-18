@@ -266,7 +266,7 @@
     }
     .mat-img::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(13,13,13,.9), transparent 50%);
+      background: linear-gradient(to top, rgba(10,15,13,.9), transparent 50%);
     }
     .mat-body { padding: 22px 20px; background: var(--dark3); }
     .mat-body h3 { font-size: 1.25rem; font-weight: 900; color: var(--gold); margin-bottom: 8px; }
@@ -403,6 +403,94 @@
     .form-success h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 8px; }
     .form-success p  { color: var(--muted); font-size: .9rem; }
 
+    /* ─── GALLERY ─── */
+    #gallery { background: var(--dark); }
+
+    .gallery-filters {
+      display: flex; justify-content: center; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 40px;
+    }
+    .filter-btn {
+      background: var(--dark3); border: 1.5px solid rgba(46,139,87,.2);
+      color: var(--muted); padding: 8px 22px; border-radius: 50px;
+      font-family: 'Cairo', sans-serif; font-size: .9rem; font-weight: 700;
+      cursor: pointer; transition: all .25s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gold); border-color: var(--gold);
+      color: #fff;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px; max-width: 1100px; margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative; border-radius: 14px; overflow: hidden;
+      aspect-ratio: 4/3; cursor: pointer;
+      border: 1px solid rgba(46,139,87,.15);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .gallery-item:hover { transform: scale(1.03); box-shadow: 0 10px 35px rgba(0,0,0,.5); }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 55%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 14px; opacity: 0; transition: opacity .3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span {
+      color: #fff; font-size: .88rem; font-weight: 700;
+    }
+    .gallery-overlay small {
+      color: var(--gold); font-size: .75rem;
+    }
+    .gallery-item[data-hidden="true"] { display: none; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,.92); align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 85vh;
+      border-radius: 12px; object-fit: contain;
+      box-shadow: 0 0 60px rgba(0,0,0,.8);
+    }
+    .lb-close {
+      position: absolute; top: 20px; left: 24px;
+      background: rgba(255,255,255,.1); border: none; color: #fff;
+      font-size: 1.6rem; width: 44px; height: 44px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,.25); }
+    .lb-caption {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,.6); color: #fff; padding: 8px 20px;
+      border-radius: 50px; font-family: 'Cairo', sans-serif;
+      font-size: .9rem; white-space: nowrap;
+    }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.1); border: none; color: #fff;
+      font-size: 1.5rem; width: 48px; height: 48px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .lb-nav:hover { background: var(--gold); }
+    .lb-prev { right: 20px; }
+    .lb-next { left: 20px; }
+
     /* ─── FOOTER ─── */
     footer {
       background: var(--dark);
@@ -468,13 +556,14 @@
     <div class="logo-icon">⚙️</div>
     <div>
       <div class="logo-text">مكتب الإخلاص</div>
-      <span class="logo-sub">إدارة الأستاذ محمد أبو الفتوح</span>
+      <span class="logo-sub">للخامات المعدنية</span>
     </div>
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#services">خدماتنا</a></li>
     <li><a href="#materials">الخامات</a></li>
     <li><a href="#why">لماذا نحن</a></li>
+    <li><a href="#gallery">معرض الصور</a></li>
     <li><a href="#about">من نحن</a></li>
     <li><a href="#contact" class="nav-cta">تواصل معنا</a></li>
   </ul>
@@ -631,44 +720,146 @@
 </section>
 
 <!-- ─── ABOUT ─── -->
-<section id="about">
-  <div class="about-inner">
-    <div class="about-visual reveal">
-      <img
-        class="about-img"
-        src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700&q=80"
-        alt="مكتب الإخلاص"
-      />
-      <div class="about-badge-float">
-        <div class="num">+500</div>
-        <div class="lbl">صفقة ناجحة</div>
-      </div>
-    </div>
-    <div class="about-content reveal">
+<section id="about" style="background: linear-gradient(135deg, var(--dark3) 0%, rgba(46,139,87,.12) 100%); border-top: 1px solid rgba(46,139,87,.15); border-bottom: 1px solid rgba(46,139,87,.15);">
+  <div style="max-width:860px; margin:0 auto; text-align:center;">
+    <div class="reveal">
       <div class="section-tag">من نحن</div>
-      <h2>مكتب الإخلاص<br/><span>شريكك الموثوق</span></h2>
-      <p style="color:var(--gold);font-weight:800;font-size:1rem;margin-bottom:6px;">
+      <h2 class="section-title">مكتب الإخلاص — <span>شريكك الموثوق</span></h2>
+      <p style="color:var(--gold);font-weight:800;font-size:1.05rem;margin-bottom:18px;">
         تحت إدارة الأستاذ / محمد أبو الفتوح
       </p>
-      <p>
-        تأسّس مكتب الإخلاص للخامات المعدنية بهدف واحد: تقديم خدمة شراء وبيع معادن قديمة تعتمد على الشفافية والثقة. نتعامل مع الشركات والمصانع مباشرةً، مما يضمن لك أفضل سعر وأسرع صفقة.
+      <div class="divider" style="margin-bottom:28px;"></div>
+      <p style="color:var(--muted);font-size:.97rem;margin-bottom:14px;">
+        تأسّس مكتب الإخلاص للخامات المعدنية بهدف واحد: تقديم خدمة شراء وبيع معادن قديمة تعتمد على الشفافية والثقة.
+        نتعامل مع الشركات والمصانع مباشرةً، مما يضمن لك أفضل سعر وأسرع صفقة.
       </p>
-      <p>
+      <p style="color:var(--muted);font-size:.97rem;margin-bottom:36px;">
         فريقنا مدرَّب على تقييم النحاس والألمنيوم بدقة عالية، ونوفّر لعملائنا سرعة الاستجابة والدفع الفوري عند إتمام الصفقة.
       </p>
-      <ul class="about-list">
-        <li>شراء وبيع النحاس والألمنيوم القديم بجميع درجاته</li>
+    </div>
+
+    <!-- بيانات سريعة -->
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:36px;">
+      <div style="background:var(--dark4);border:1px solid rgba(46,139,87,.2);border-radius:14px;padding:22px 16px;">
+        <div style="font-size:2rem;font-weight:900;color:var(--gold);">+10</div>
+        <div style="color:var(--muted);font-size:.85rem;">سنوات خبرة</div>
+      </div>
+      <div style="background:var(--dark4);border:1px solid rgba(46,139,87,.2);border-radius:14px;padding:22px 16px;">
+        <div style="font-size:2rem;font-weight:900;color:var(--gold);">+500</div>
+        <div style="color:var(--muted);font-size:.85rem;">صفقة ناجحة</div>
+      </div>
+      <div style="background:var(--dark4);border:1px solid rgba(46,139,87,.2);border-radius:14px;padding:22px 16px;">
+        <div style="font-size:2rem;font-weight:900;color:var(--gold);">24h</div>
+        <div style="color:var(--muted);font-size:.85rem;">وقت الاستجابة</div>
+      </div>
+      <div style="background:var(--dark4);border:1px solid rgba(46,139,87,.2);border-radius:14px;padding:22px 16px;">
+        <div style="font-size:2rem;font-weight:900;color:var(--gold);">100%</div>
+        <div style="color:var(--muted);font-size:.85rem;">شفافية في التقييم</div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <ul class="about-list" style="display:inline-grid;grid-template-columns:1fr 1fr;gap:8px 40px;text-align:right;margin-bottom:32px;">
+        <li>شراء وبيع النحاس والألمنيوم بجميع درجاته</li>
         <li>خدمة الاستلام من الموقع للكميات الكبيرة</li>
         <li>تقييم شفاف وفوري بدون مفاجآت</li>
         <li>دفع فوري نقدًا أو تحويلاً بنكيًا</li>
+        <li>أسعار تنافسية محدّثة يومياً</li>
         <li>خبرة +10 سنوات في السوق المحلي</li>
       </ul>
-      <a href="#contact" class="btn-primary" style="margin-top:8px;display:inline-flex;">
+      <br/>
+      <a href="#contact" class="btn-primary" style="display:inline-flex;margin-top:8px;">
         تواصل معنا الآن ←
       </a>
     </div>
   </div>
 </section>
+
+<!-- ─── GALLERY ─── -->
+<section id="gallery">
+  <div class="section-header reveal">
+    <div class="section-tag">معرض الصور</div>
+    <h2 class="section-title">منتجاتنا <span>بالصور</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">نماذج من الخامات التي نشتريها ونبيعها — سخانات، رديتارير، محولات كهرباء</p>
+  </div>
+
+  <!-- فلاتر -->
+  <div class="gallery-filters reveal">
+    <button class="filter-btn active" onclick="filterGallery('all')">الكل</button>
+    <button class="filter-btn" onclick="filterGallery('sakhana')">🔥 سخانات نحاس</button>
+    <button class="filter-btn" onclick="filterGallery('radiator')">♨️ رديتارير</button>
+    <button class="filter-btn" onclick="filterGallery('trafo')">⚡ محولات كهرباء</button>
+  </div>
+
+  <!-- الصور -->
+  <div class="gallery-grid" id="galleryGrid">
+
+    <!-- سخانات نحاس -->
+    <div class="gallery-item reveal" data-cat="sakhana" onclick="openLightbox(0)">
+      <img src="image/images.jpeg" alt="نحاس سخانات" loading="lazy"/>
+      <div class="gallery-overlay"><span>نحاس سخانات أسطوانات</span><small>🔥 سخانات نحاس</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="sakhana" onclick="openLightbox(1)">
+      <img src="image/images-6.jpeg" alt="أسلاك نحاس" loading="lazy"/>
+      <div class="gallery-overlay"><span>أسلاك نحاس</span><small>🔥 سخانات نحاس</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="sakhana" onclick="openLightbox(2)">
+      <img src="image/images-8.jpeg" alt="مواسير نحاس" loading="lazy"/>
+      <div class="gallery-overlay"><span>مواسير نحاس</span><small>🔥 سخانات نحاس</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="sakhana" onclick="openLightbox(3)">
+      <img src="image/images-4.jpeg" alt="قطع نحاس وبرونز" loading="lazy"/>
+      <div class="gallery-overlay"><span>قطع نحاس وبرونز</span><small>🔥 سخانات نحاس</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="sakhana" onclick="openLightbox(4)">
+      <img src="image/2-Copper-Tubing-scaled.jpg" alt="مواسير وقطع نحاس" loading="lazy"/>
+      <div class="gallery-overlay"><span>مواسير وقطع نحاس متنوعة</span><small>🔥 سخانات نحاس</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="sakhana" onclick="openLightbox(5)">
+      <img src="image/images-13.jpeg" alt="كميات نحاس" loading="lazy"/>
+      <div class="gallery-overlay"><span>كميات نحاس كبيرة</span><small>🔥 سخانات نحاس</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="sakhana" onclick="openLightbox(6)">
+      <img src="image/images-7.jpeg" alt="خردة نحاس" loading="lazy"/>
+      <div class="gallery-overlay"><span>خردة نحاس متنوعة</span><small>🔥 سخانات نحاس</small></div>
+    </div>
+
+    <!-- رديتارير -->
+    <div class="gallery-item reveal" data-cat="radiator" onclick="openLightbox(7)">
+      <img src="image/images-2.jpeg" alt="رديتارير" loading="lazy"/>
+      <div class="gallery-overlay"><span>رديتاتير نحاس</span><small>♨️ رديتارير</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="radiator" onclick="openLightbox(8)">
+      <img src="image/images-10.jpeg" alt="رديتارير ألمنيوم" loading="lazy"/>
+      <div class="gallery-overlay"><span>رديتاتير ألمنيوم</span><small>♨️ رديتارير</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="radiator" onclick="openLightbox(9)">
+      <img src="image/images-11.jpeg" alt="رديتارير قديم" loading="lazy"/>
+      <div class="gallery-overlay"><span>رديتاتير قديم</span><small>♨️ رديتارير</small></div>
+    </div>
+    <div class="gallery-item reveal" data-cat="radiator" onclick="openLightbox(10)">
+      <img src="image/scrap-radiator.jpg.webp" alt="رديتارير خردة" loading="lazy"/>
+      <div class="gallery-overlay"><span>رديتاتير خردة</span><small>♨️ رديتارير</small></div>
+    </div>
+
+    <!-- محولات كهرباء -->
+    <div class="gallery-item reveal" data-cat="trafo" onclick="openLightbox(11)">
+      <img src="image/images-12.jpeg" alt="محولات كهرباء" loading="lazy"/>
+      <div class="gallery-overlay"><span>خردة محولات كهرباء</span><small>⚡ محولات كهرباء</small></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbMove(1); event.stopPropagation()">❯</button>
+  <img id="lbImg" src="" alt="" />
+  <button class="lb-nav lb-next" onclick="lbMove(-1); event.stopPropagation()">❮</button>
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
 
 <!-- ─── CONTACT ─── -->
 <section id="contact">
@@ -722,10 +913,7 @@
     <!-- FORM -->
     <div class="contact-form reveal">
       <h3>📋 أرسل طلبك</h3>
-      <form id="contactForm" action="https://formsubmit.co/ajax/moh2medftouh@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="طلب جديد من موقع مكتب الإخلاص" />
-        <input type="hidden" name="_language" value="ar" />
-        <input type="hidden" name="_captcha" value="false" />
+      <form id="contactForm">
 
         <div class="form-row">
           <div class="form-group">
@@ -793,7 +981,7 @@
       <div class="logo-icon">⚙️</div>
       <div>
         <div class="logo-text">مكتب الإخلاص</div>
-        <span class="logo-sub">إدارة الأستاذ محمد أبو الفتوح</span>
+        <span class="logo-sub">للخامات المعدنية</span>
       </div>
     </div>
     <p class="footer-copy">© 2025 مكتب الإخلاص — جميع الحقوق محفوظة</p>
@@ -834,53 +1022,77 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // ─── Form submit ───
+  // ─── Form submit → واتساب ───
   const form = document.getElementById('contactForm');
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const btn = form.querySelector('.btn-submit');
-
-    // لو بيتشغّل محلياً (file://) افتح واتساب مباشرة
-    if (location.protocol === 'file:') {
-      const data = new FormData(form);
-      const lines = [
-        `الاسم: ${data.get('name') || ''}`,
-        `الهاتف: ${data.get('phone') || ''}`,
-        `الشركة: ${data.get('company') || ''}`,
-        `نوع الطلب: ${data.get('request_type') || ''}`,
-        `الخامة: ${data.get('material') || ''}`,
-        `الكمية: ${data.get('quantity') || ''}`,
-        `رسالة: ${data.get('message') || ''}`
-      ].join('%0A');
-      window.open(`https://wa.me/201065029929?text=${lines}`, '_blank');
-      form.style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-      return;
-    }
-
-    // على الموقع المنشور — أرسل عبر formsubmit
-    btn.disabled = true;
-    btn.textContent = 'جاري الإرسال…';
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        form.style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.textContent = 'إرسال الطلب ✉️';
-        alert('حدث خطأ، حاول مرة أخرى.');
-      }
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'إرسال الطلب ✉️';
-      alert('حدث خطأ في الإرسال، حاول مرة أخرى.');
-    }
+    const d = new FormData(form);
+    const msg = [
+      '🔔 *طلب جديد - مكتب الإخلاص*',
+      '─────────────────',
+      `👤 الاسم: ${d.get('name') || ''}`,
+      `📞 الهاتف: ${d.get('phone') || ''}`,
+      `🏭 الشركة: ${d.get('company') || '-'}`,
+      `📋 نوع الطلب: ${d.get('request_type') || ''}`,
+      `⚙️ الخامة: ${d.get('material') || ''}`,
+      `📦 الكمية: ${d.get('quantity') || ''}`,
+      `💬 رسالة: ${d.get('message') || '-'}`
+    ].join('\n');
+    window.open(`https://wa.me/201065029929?text=${encodeURIComponent(msg)}`, '_blank');
+    form.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
   });
+
+  // ─── Gallery data ───
+  const galleryData = [
+    { src: 'image/images.jpeg',                    caption: 'نحاس سخانات أسطوانات' },
+    { src: 'image/images-6.jpeg',                  caption: 'أسلاك نحاس' },
+    { src: 'image/images-8.jpeg',                  caption: 'مواسير نحاس' },
+    { src: 'image/images-4.jpeg',                  caption: 'قطع نحاس وبرونز' },
+    { src: 'image/2-Copper-Tubing-scaled.jpg',     caption: 'مواسير وقطع نحاس متنوعة' },
+    { src: 'image/images-13.jpeg',                 caption: 'كميات نحاس كبيرة' },
+    { src: 'image/images-7.jpeg',                  caption: 'خردة نحاس متنوعة' },
+    { src: 'image/images-2.jpeg',                  caption: 'رديتاتير نحاس' },
+    { src: 'image/images-10.jpeg',                 caption: 'رديتاتير ألمنيوم' },
+    { src: 'image/images-11.jpeg',                 caption: 'رديتاتير قديم' },
+    { src: 'image/scrap-radiator.jpg.webp',        caption: 'رديتاتير خردة' },
+    { src: 'image/images-12.jpeg',                 caption: 'خردة محولات كهرباء' },
+  ];
+  let lbIndex = 0;
+
+  function openLightbox(i) {
+    lbIndex = i;
+    document.getElementById('lbImg').src = galleryData[i].src;
+    document.getElementById('lbCaption').textContent = galleryData[i].caption;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lb-close')) {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+  function lbMove(dir) {
+    lbIndex = (lbIndex + dir + galleryData.length) % galleryData.length;
+    document.getElementById('lbImg').src = galleryData[lbIndex].src;
+    document.getElementById('lbCaption').textContent = galleryData[lbIndex].caption;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') });
+    if (e.key === 'ArrowRight') lbMove(1);
+    if (e.key === 'ArrowLeft')  lbMove(-1);
+  });
+
+  // ─── Gallery filter ───
+  function filterGallery(cat) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+    });
+  }
 
   // ─── Smooth close mobile nav on link click ───
   document.querySelectorAll('.nav-links a').forEach(a => {
