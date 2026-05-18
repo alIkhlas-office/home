@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مكتب الإخلاص – شراء وبيع النحاس والألمنيوم</title>
+  <meta name="description" content="مكتب الإخلاص – نشتري ونبيع النحاس والألمنيوم القديم من الشركات والمصانع بأسعار تنافسية." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:   #2e8b57;
+      --gold2:  #3aaf6e;
+      --dark:   #0a0f0d;
+      --dark2:  #0f1610;
+      --dark3:  #141e16;
+      --dark4:  #1a2a1c;
+      --text:   #e8f0ea;
+      --muted:  #7a9e82;
+      --copper: #1f6b40;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: rgba(10,15,13,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(46,139,87,.18);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--gold), var(--copper));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .logo-text { font-size: 1.15rem; font-weight: 900; color: var(--gold); }
+    .logo-sub  { font-size: .7rem; color: var(--muted); display: block; }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--text); text-decoration: none;
+      font-size: .92rem; font-weight: 600;
+      transition: color .25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; right: 0;
+      width: 0; height: 2px; background: var(--gold);
+      transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      color: #000 !important; padding: 8px 20px; border-radius: 8px;
+      font-weight: 700 !important;
+    }
+    .nav-cta::after { display: none !important; }
+
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .burger span { display: block; width: 25px; height: 2px; background: var(--text); transition: .3s; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 5% 60px;
+      background:
+        linear-gradient(135deg, rgba(10,15,13,.97) 45%, rgba(31,107,64,.25) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80') center/cover no-repeat;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-inner { max-width: 680px; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(46,139,87,.12); border: 1px solid rgba(46,139,87,.3);
+      color: var(--gold); padding: 6px 16px; border-radius: 50px;
+      font-size: .82rem; font-weight: 700; margin-bottom: 24px;
+    }
+    .badge::before { content: '●'; font-size: .5rem; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900; line-height: 1.25;
+      margin-bottom: 18px;
+    }
+    .hero-title span { color: var(--gold); }
+
+    .hero-desc {
+      font-size: 1.08rem; color: #bbb;
+      margin-bottom: 36px; max-width: 540px;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      color: #000; font-weight: 800; font-size: 1rem;
+      padding: 14px 32px; border-radius: 10px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(46,139,87,.4); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text); font-weight: 700; font-size: 1rem;
+      padding: 13px 30px; border-radius: 10px;
+      text-decoration: none; cursor: pointer;
+      border: 1.5px solid rgba(255,255,255,.2);
+      transition: border-color .25s, color .25s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 56px; flex-wrap: wrap;
+    }
+    .stat-item { }
+    .stat-num { font-size: 2rem; font-weight: 900; color: var(--gold); }
+    .stat-label { font-size: .8rem; color: var(--muted); }
+
+    /* floating shapes */
+    .hero-shape {
+      position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+      width: 360px; height: 360px; opacity: .06;
+      background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 90px 5%; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-tag {
+      display: inline-block;
+      color: var(--gold); font-size: .82rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 900; margin-bottom: 14px;
+    }
+    .section-title span { color: var(--gold); }
+    .section-desc { color: var(--muted); max-width: 520px; margin: 0 auto; font-size: .97rem; }
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 16px auto 0; border-radius: 2px;
+    }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--dark2); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 1100px; margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--dark3);
+      border: 1px solid rgba(46,139,87,.12);
+      border-radius: 16px; padding: 36px 28px;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at top right, rgba(46,139,87,.12), transparent);
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(46,139,87,.4);
+      box-shadow: 0 12px 40px rgba(46,139,87,.1);
+    }
+    .service-icon {
+      width: 60px; height: 60px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin-bottom: 20px;
+    }
+    .icon-buy  { background: rgba(46,139,87,.15); }
+    .icon-sell { background: rgba(31,107,64,.15); }
+    .icon-al   { background: rgba(120,150,200,.12); }
+    .icon-cu   { background: rgba(46,139,87,.15); }
+
+    .service-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; }
+    .service-card p  { color: var(--muted); font-size: .92rem; }
+
+    /* ─── WHY US ─── */
+    #why { background: var(--dark); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px; max-width: 1100px; margin: 0 auto;
+    }
+
+    .why-card {
+      background: var(--dark3);
+      border-radius: 14px; padding: 28px 22px;
+      border: 1px solid rgba(255,255,255,.05);
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: border-color .3s;
+    }
+    .why-card:hover { border-color: rgba(46,139,87,.3); }
+    .why-num {
+      font-size: 2rem; font-weight: 900; color: rgba(46,139,87,.25);
+      line-height: 1; min-width: 36px;
+    }
+    .why-card h4 { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+    .why-card p  { color: var(--muted); font-size: .87rem; }
+
+    /* ─── MATERIALS ─── */
+    #materials { background: var(--dark2); }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px; max-width: 1100px; margin: 0 auto;
+    }
+
+    .mat-card {
+      border-radius: 18px; overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(46,139,87,.15);
+      transition: transform .3s;
+    }
+    .mat-card:hover { transform: scale(1.02); }
+    .mat-img {
+      height: 220px;
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .mat-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,13,13,.9), transparent 50%);
+    }
+    .mat-body { padding: 22px 20px; background: var(--dark3); }
+    .mat-body h3 { font-size: 1.25rem; font-weight: 900; color: var(--gold); margin-bottom: 8px; }
+    .mat-body p  { color: var(--muted); font-size: .9rem; }
+    .mat-tag {
+      display: inline-block; margin-top: 12px;
+      background: rgba(46,139,87,.12); color: var(--gold);
+      padding: 4px 12px; border-radius: 50px; font-size: .78rem; font-weight: 700;
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--dark); }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-img {
+      width: 100%; border-radius: 18px;
+      height: 420px; object-fit: cover;
+      border: 2px solid rgba(46,139,87,.2);
+    }
+    .about-badge-float {
+      position: absolute; bottom: 24px; left: 24px;
+      background: var(--dark2);
+      border: 1px solid rgba(46,139,87,.3);
+      border-radius: 14px; padding: 16px 20px;
+    }
+    .about-badge-float .num { font-size: 1.8rem; font-weight: 900; color: var(--gold); }
+    .about-badge-float .lbl{ font-size: .78rem; color: var(--muted); }
+
+    .about-content h2 { font-size: clamp(1.5rem,3vw,2.1rem); font-weight: 900; margin-bottom: 18px; }
+    .about-content h2 span { color: var(--gold); }
+    .about-content p { color: var(--muted); margin-bottom: 14px; font-size: .95rem; }
+
+    .about-list { list-style: none; margin: 20px 0; }
+    .about-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 12px; font-size: .93rem;
+    }
+    .about-list li::before {
+      content: '✦'; color: var(--gold); font-size: .7rem; margin-top: 5px; flex-shrink: 0;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--dark2); }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 50px; max-width: 1100px; margin: 0 auto;
+      align-items: start;
+    }
+
+    .contact-info h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 24px; }
+
+    .info-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      margin-bottom: 22px;
+    }
+    .info-icon {
+      width: 46px; height: 46px; flex-shrink: 0;
+      background: rgba(46,139,87,.1); border: 1px solid rgba(46,139,87,.25);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem;
+    }
+    .info-label { font-size: .78rem; color: var(--muted); margin-bottom: 3px; }
+    .info-val   { font-size: .97rem; font-weight: 700; }
+
+    .map-wrap {
+      margin-top: 28px; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(46,139,87,.18);
+    }
+    .map-wrap iframe { display: block; width: 100%; height: 220px; border: none; }
+
+    /* FORM */
+    .contact-form {
+      background: var(--dark3);
+      border: 1px solid rgba(46,139,87,.15);
+      border-radius: 18px; padding: 36px 30px;
+    }
+    .contact-form h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 24px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: .83rem; font-weight: 700;
+      color: var(--muted); margin-bottom: 7px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: var(--dark4);
+      border: 1.5px solid rgba(255,255,255,.08);
+      border-radius: 10px; padding: 12px 16px;
+      color: var(--text); font-family: 'Cairo', sans-serif;
+      font-size: .93rem;
+      transition: border-color .25s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group select option { background: var(--dark3); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-note { font-size: .78rem; color: var(--muted); margin-bottom: 20px; }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      color: #000; font-weight: 800; font-size: 1.05rem;
+      padding: 15px; border-radius: 10px;
+      border: none; cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      font-family: 'Cairo', sans-serif;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,139,87,.4); }
+
+    .form-success {
+      display: none; text-align: center; padding: 24px;
+      background: rgba(46,139,87,.08); border-radius: 12px;
+      border: 1px solid rgba(46,139,87,.3); margin-top: 20px;
+    }
+    .form-success h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 8px; }
+    .form-success p  { color: var(--muted); font-size: .9rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(46,139,87,.12);
+      padding: 40px 5% 24px;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px; max-width: 1100px; margin: 0 auto;
+    }
+    .footer-logo .logo-text { font-size: 1.1rem; }
+    .footer-copy { color: var(--muted); font-size: .83rem; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: .83rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ─── FLOATING WHATSAPP ─── */
+    .wa-btn {
+      position: fixed; bottom: 28px; left: 28px;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; text-decoration: none; z-index: 900;
+      box-shadow: 0 4px 20px rgba(37,211,102,.4);
+      transition: transform .2s;
+    }
+    .wa-btn:hover { transform: scale(1.1); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { order: -1; }
+      .contact-inner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 70px; right: 0; left: 0;
+        background: rgba(10,15,13,.97);
+        padding: 20px 5%; gap: 18px;
+        border-bottom: 1px solid rgba(46,139,87,.2);
+      }
+      .burger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <a class="logo" href="#">
+    <div class="logo-icon">⚙️</div>
+    <div>
+      <div class="logo-text">مكتب الإخلاص</div>
+      <span class="logo-sub">إدارة الأستاذ محمد أبو الفتوح</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">خدماتنا</a></li>
+    <li><a href="#materials">الخامات</a></li>
+    <li><a href="#why">لماذا نحن</a></li>
+    <li><a href="#about">من نحن</a></li>
+    <li><a href="#contact" class="nav-cta">تواصل معنا</a></li>
+  </ul>
+  <div class="burger" id="burger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-shape"></div>
+  <div class="hero-inner">
+    <div class="badge">شريكك الموثوق في تجارة المعادن</div>
+    <h1 class="hero-title">
+      نشتري ونبيع<br/>
+      <span>النحاس والألمنيوم</span><br/>
+      بأعلى الأسعار
+    </h1>
+    <p class="hero-desc">
+      مكتب الإخلاص متخصص في شراء وبيع الخامات المعدنية القديمة من الشركات والمصانع.
+      نقدّم أسعارًا تنافسية، تقييمًا فوريًا، وخدمة احترافية من أول يوم.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">📞 تواصل معنا الآن</a>
+      <a href="#services" class="btn-outline">🔍 اعرف أكثر</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">+500</div>
+        <div class="stat-label">عميل راضٍ</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">+10</div>
+        <div class="stat-label">سنوات خبرة</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24h</div>
+        <div class="stat-label">وقت الاستجابة</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services">
+  <div class="section-header reveal">
+    <div class="section-tag">خدماتنا</div>
+    <h2 class="section-title">ماذا نقدّم لك؟</h2>
+    <div class="divider"></div>
+    <p class="section-desc">نوفر حلولاً متكاملة لشراء وبيع الخامات المعدنية بأعلى كفاءة وأفضل سعر.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon icon-buy">🛒</div>
+      <h3>شراء الخامات</h3>
+      <p>نشتري النحاس والألمنيوم القديم من شركاتك ومصانعك بأسعار تنافسية وتقييم فوري في الموقع.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon icon-sell">💰</div>
+      <h3>بيع الخامات</h3>
+      <p>نوفّر للمشترين خامات معدنية بجودة مضمونة وكميات متنوعة تلائم احتياجات مصانعكم.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon icon-cu">🔩</div>
+      <h3>نحاس بكل أنواعه</h3>
+      <p>أسلاك، مواسير، صاج، براذين — نقبل جميع أشكال النحاس القديم بأفضل الأسعار.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon icon-al">⚡</div>
+      <h3>ألمنيوم بكل أشكاله</h3>
+      <p>ألمنيوم صب، تشكيل، شبابيك، هياكل — نستقبل جميع درجات الألمنيوم ونقيّمها أمامك.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MATERIALS ─── -->
+<section id="materials">
+  <div class="section-header reveal">
+    <div class="section-tag">الخامات</div>
+    <h2 class="section-title">الخامات التي <span>نتعامل بها</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="materials-grid">
+    <div class="mat-card reveal">
+      <div class="mat-img" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80')"></div>
+      <div class="mat-body">
+        <h3>النحاس</h3>
+        <p>نشتري ونبيع النحاس القديم بجميع درجاته وأنواعه — أسلاك، مواسير، حافظات، أجهزة مستعملة.</p>
+        <span class="mat-tag">سعر يومي تنافسي</span>
+      </div>
+    </div>
+    <div class="mat-card reveal">
+      <div class="mat-img" style="background-image:url('https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=80')"></div>
+      <div class="mat-body">
+        <h3>الألمنيوم</h3>
+        <p>جميع درجات الألمنيوم القديم — صب، تشكيل، هياكل، ألواح، شبابيك ومخلفات مصانع.</p>
+        <span class="mat-tag">تقييم فوري في الموقع</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY US ─── -->
+<section id="why">
+  <div class="section-header reveal">
+    <div class="section-tag">لماذا نحن</div>
+    <h2 class="section-title">لماذا تختار <span>مكتب الإخلاص؟</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-num">01</div>
+      <div>
+        <h4>أسعار تنافسية</h4>
+        <p>نقدّم أعلى الأسعار في السوق مع تحديث يومي لضمان حصولك على أفضل صفقة.</p>
+      </div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">02</div>
+      <div>
+        <h4>تقييم شفاف وفوري</h4>
+        <p>فريقنا يزور موقعك ويقيّم الكميات أمامك دون مفاجآت أو خصومات مخفية.</p>
+      </div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">03</div>
+      <div>
+        <h4>خبرة أكثر من 10 سنوات</h4>
+        <p>تجربة واسعة في التعامل مع شركات ومصانع متنوعة في مختلف القطاعات.</p>
+      </div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">04</div>
+      <div>
+        <h4>استجابة سريعة</h4>
+        <p>نردّ على استفساراتك خلال 24 ساعة ونرتّب موعد الزيارة في أقرب وقت.</p>
+      </div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">05</div>
+      <div>
+        <h4>دفع فوري</h4>
+        <p>نلتزم بالسداد الفوري عند إتمام الصفقة نقدًا أو تحويلاً بدون تأخير.</p>
+      </div>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">06</div>
+      <div>
+        <h4>تغطية واسعة</h4>
+        <p>نصل إلى شركاتك ومصانعك أينما كانت لاستلام الكميات الكبيرة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <img
+        class="about-img"
+        src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700&q=80"
+        alt="مكتب الإخلاص"
+      />
+      <div class="about-badge-float">
+        <div class="num">+500</div>
+        <div class="lbl">صفقة ناجحة</div>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <div class="section-tag">من نحن</div>
+      <h2>مكتب الإخلاص<br/><span>شريكك الموثوق</span></h2>
+      <p style="color:var(--gold);font-weight:800;font-size:1rem;margin-bottom:6px;">
+        تحت إدارة الأستاذ / محمد أبو الفتوح
+      </p>
+      <p>
+        تأسّس مكتب الإخلاص للخامات المعدنية بهدف واحد: تقديم خدمة شراء وبيع معادن قديمة تعتمد على الشفافية والثقة. نتعامل مع الشركات والمصانع مباشرةً، مما يضمن لك أفضل سعر وأسرع صفقة.
+      </p>
+      <p>
+        فريقنا مدرَّب على تقييم النحاس والألمنيوم بدقة عالية، ونوفّر لعملائنا سرعة الاستجابة والدفع الفوري عند إتمام الصفقة.
+      </p>
+      <ul class="about-list">
+        <li>شراء وبيع النحاس والألمنيوم القديم بجميع درجاته</li>
+        <li>خدمة الاستلام من الموقع للكميات الكبيرة</li>
+        <li>تقييم شفاف وفوري بدون مفاجآت</li>
+        <li>دفع فوري نقدًا أو تحويلاً بنكيًا</li>
+        <li>خبرة +10 سنوات في السوق المحلي</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="margin-top:8px;display:inline-flex;">
+        تواصل معنا الآن ←
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-tag">تواصل معنا</div>
+    <h2 class="section-title">أرسل لنا <span>طلبك</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">سواء تريد شراء أو بيع — فقط أرسل لنا التفاصيل وسنتواصل معك في أقرب وقت.</p>
+  </div>
+
+  <div class="contact-inner">
+    <!-- INFO -->
+    <div class="reveal">
+      <h3>معلومات التواصل</h3>
+
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div>
+          <div class="info-label">رقم الهاتف / واتساب</div>
+          <div class="info-val">01065029929</div>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">📧</div>
+        <div>
+          <div class="info-label">البريد الإلكتروني</div>
+          <div class="info-val">moh2medftouh@gmail.com</div>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label">العنوان</div>
+          <div class="info-val">دكرنس، دقهلية — مصر</div>
+        </div>
+      </div>
+
+      <div class="map-wrap">
+        <!-- عدّل إحداثيات الخريطة بعد تحديد العنوان الكامل -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27696.93!2d31.5833!3d31.0833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7b3b3b3b3b3b3%3A0x0!2z2K/Zg9ix2YbYsyDYryDYr9qp2YfZhNmK2Kk!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg&q=دكرنس،+دقهلية،+مصر"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="موقع مكتب الإخلاص - دكرنس دقهلية"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="contact-form reveal">
+      <h3>📋 أرسل طلبك</h3>
+      <form id="contactForm" action="https://formsubmit.co/ajax/moh2medftouh@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="طلب جديد من موقع مكتب الإخلاص" />
+        <input type="hidden" name="_language" value="ar" />
+        <input type="hidden" name="_captcha" value="false" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">الاسم الكامل *</label>
+            <input type="text" id="fname" name="name" placeholder="اسمك" required />
+          </div>
+          <div class="form-group">
+            <label for="fphone">رقم الهاتف *</label>
+            <input type="tel" id="fphone" name="phone" placeholder="+20 XXX XXX XXXX" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fcompany">اسم الشركة / المصنع</label>
+          <input type="text" id="fcompany" name="company" placeholder="اختياري" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ftype">نوع الطلب *</label>
+            <select id="ftype" name="request_type" required>
+              <option value="" disabled selected>اختر النوع</option>
+              <option value="شراء - أريد أن أبيع خاماتي">🔴 أريد أن أبيع (أنت تبيع لنا)</option>
+              <option value="بيع - أريد أن أشتري خامات">🟢 أريد أن أشتري (نبيع لك)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="fmaterial">نوع الخامة *</label>
+            <select id="fmaterial" name="material" required>
+              <option value="" disabled selected>اختر الخامة</option>
+              <option value="نحاس">نحاس</option>
+              <option value="ألمنيوم">ألمنيوم</option>
+              <option value="نحاس وألمنيوم">نحاس + ألمنيوم</option>
+              <option value="أخرى">أخرى</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fqty">الكمية التقريبية *</label>
+          <input type="text" id="fqty" name="quantity" placeholder="مثال: 500 كجم، طن، 2 طن…" required />
+        </div>
+
+        <div class="form-group">
+          <label for="fmsg">رسالتك / تفاصيل إضافية</label>
+          <textarea id="fmsg" name="message" placeholder="أي تفاصيل إضافية عن الخامة أو موقعك أو وقت الزيارة..."></textarea>
+        </div>
+
+        <p class="form-note">* سيصلك رد خلال 24 ساعة على رقم هاتفك.</p>
+        <button type="submit" class="btn-submit">إرسال الطلب ✉️</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <h4>✅ تم إرسال طلبك بنجاح!</h4>
+        <p>سنتواصل معك خلال 24 ساعة على رقم هاتفك.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo logo">
+      <div class="logo-icon">⚙️</div>
+      <div>
+        <div class="logo-text">مكتب الإخلاص</div>
+        <span class="logo-sub">إدارة الأستاذ محمد أبو الفتوح</span>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 مكتب الإخلاص — جميع الحقوق محفوظة</p>
+    <div class="footer-links">
+      <a href="#services">خدماتنا</a>
+      <a href="#about">من نحن</a>
+      <a href="#contact">تواصل</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/201065029929" class="wa-btn" target="_blank" title="واتساب">💬</a>
+
+<script>
+  // ─── NAV toggle ───
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ─── Nav shadow on scroll ───
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.boxShadow = window.scrollY > 20
+      ? '0 4px 30px rgba(0,0,0,.5)'
+      : 'none';
+  });
+
+  // ─── Scroll reveal ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── Form submit ───
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('.btn-submit');
+
+    // لو بيتشغّل محلياً (file://) افتح واتساب مباشرة
+    if (location.protocol === 'file:') {
+      const data = new FormData(form);
+      const lines = [
+        `الاسم: ${data.get('name') || ''}`,
+        `الهاتف: ${data.get('phone') || ''}`,
+        `الشركة: ${data.get('company') || ''}`,
+        `نوع الطلب: ${data.get('request_type') || ''}`,
+        `الخامة: ${data.get('material') || ''}`,
+        `الكمية: ${data.get('quantity') || ''}`,
+        `رسالة: ${data.get('message') || ''}`
+      ].join('%0A');
+      window.open(`https://wa.me/201065029929?text=${lines}`, '_blank');
+      form.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+      return;
+    }
+
+    // على الموقع المنشور — أرسل عبر formsubmit
+    btn.disabled = true;
+    btn.textContent = 'جاري الإرسال…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'إرسال الطلب ✉️';
+        alert('حدث خطأ، حاول مرة أخرى.');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'إرسال الطلب ✉️';
+      alert('حدث خطأ في الإرسال، حاول مرة أخرى.');
+    }
+  });
+
+  // ─── Smooth close mobile nav on link click ───
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
