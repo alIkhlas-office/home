@@ -403,6 +403,94 @@
     .form-success h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 8px; }
     .form-success p  { color: var(--muted); font-size: .9rem; }
 
+    /* ─── STEPS ─── */
+    #steps { background: var(--dark2); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0; max-width: 1100px; margin: 0 auto;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: ''; position: absolute;
+      top: 48px; right: 12.5%; left: 12.5%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+      opacity: .3;
+    }
+    .step-card {
+      text-align: center; padding: 30px 20px;
+      position: relative;
+    }
+    .step-num {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--copper));
+      color: #fff; font-size: 1.6rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px; position: relative; z-index: 1;
+      box-shadow: 0 0 0 8px var(--dark2), 0 0 0 10px rgba(46,139,87,.2);
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .step-card p  { color: var(--muted); font-size: .88rem; }
+
+    /* ─── TESTIMONIALS ─── */
+    #testimonials { background: var(--dark3); }
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px; max-width: 1000px; margin: 0 auto;
+    }
+    .test-card {
+      background: var(--dark4);
+      border: 1px solid rgba(46,139,87,.15);
+      border-radius: 16px; padding: 28px 24px;
+      transition: border-color .3s;
+    }
+    .test-card:hover { border-color: rgba(46,139,87,.4); }
+    .stars { color: #f5a623; font-size: 1rem; letter-spacing: 2px; margin-bottom: 14px; }
+    .test-text { color: var(--text); font-size: .93rem; line-height: 1.8; margin-bottom: 18px; font-style: italic; }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--copper));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900; color: #fff; flex-shrink: 0;
+    }
+    .test-name  { font-size: .9rem; font-weight: 800; }
+    .test-company { font-size: .78rem; color: var(--muted); }
+
+    /* ─── FAQ ─── */
+    #faq { background: var(--dark2); }
+    .faq-list { max-width: 780px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid rgba(46,139,87,.15);
+      border-radius: 12px; margin-bottom: 12px;
+      overflow: hidden; transition: border-color .3s;
+    }
+    .faq-item.open { border-color: rgba(46,139,87,.4); }
+    .faq-q {
+      width: 100%; text-align: right; background: var(--dark3);
+      border: none; color: var(--text);
+      font-family: 'Cairo', sans-serif; font-size: .97rem; font-weight: 700;
+      padding: 18px 22px; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; transition: background .2s;
+    }
+    .faq-q:hover { background: var(--dark4); }
+    .faq-arrow {
+      color: var(--gold); font-size: 1.1rem; flex-shrink: 0;
+      transition: transform .3s;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .35s ease, padding .3s;
+      background: var(--dark4);
+      color: var(--muted); font-size: .92rem; line-height: 1.8;
+      padding: 0 22px;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding: 16px 22px; }
+
     /* ─── GALLERY ─── */
     #gallery { background: var(--dark); }
 
@@ -563,7 +651,9 @@
     <li><a href="#services">خدماتنا</a></li>
     <li><a href="#materials">الخامات</a></li>
     <li><a href="#why">لماذا نحن</a></li>
+    <li><a href="#steps">كيف نعمل</a></li>
     <li><a href="#gallery">معرض الصور</a></li>
+    <li><a href="#faq">أسئلة شائعة</a></li>
     <li><a href="#about">من نحن</a></li>
     <li><a href="#contact" class="nav-cta">تواصل معنا</a></li>
   </ul>
@@ -666,6 +756,38 @@
   </div>
 </section>
 
+<!-- ─── STEPS ─── -->
+<section id="steps">
+  <div class="section-header reveal">
+    <div class="section-tag">كيف نعمل</div>
+    <h2 class="section-title">٤ خطوات <span>بسيطة</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">من أول اتصال لحد ما تقبض — كل حاجة واضحة وسريعة</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">١</div>
+      <h3>تواصل معنا</h3>
+      <p>اتصل أو أرسل رسالة واتساب بنوع الخامة والكمية التقريبية</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">٢</div>
+      <h3>نزور موقعك</h3>
+      <p>فريقنا يحدد موعد ويزور الشركة أو المصنع في أسرع وقت</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">٣</div>
+      <h3>تقييم فوري</h3>
+      <p>نقيّم الخامة أمامك بميزان معتمد ونحدد السعر بشفافية كاملة</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">٤</div>
+      <h3>دفع في الحال</h3>
+      <p>نسدّد المبلغ فورًا نقدًا أو تحويلاً بنكيًا بدون أي تأخير</p>
+    </div>
+  </div>
+</section>
+
 <!-- ─── WHY US ─── -->
 <section id="why">
   <div class="section-header reveal">
@@ -714,6 +836,50 @@
       <div>
         <h4>تغطية واسعة</h4>
         <p>نصل إلى شركاتك ومصانعك أينما كانت لاستلام الكميات الكبيرة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials">
+  <div class="section-header reveal">
+    <div class="section-tag">آراء العملاء</div>
+    <h2 class="section-title">ماذا قال <span>عملاؤنا؟</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="test-grid">
+    <div class="test-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">«تعاملت مع مكتب الإخلاص أكثر من مرة، الأسعار كويسة جدًا والدفع فوري. فريقهم محترم ومتعاملش معاهم غير.»</p>
+      <div class="test-author">
+        <div class="test-avatar">م</div>
+        <div>
+          <div class="test-name">محمود السيد</div>
+          <div class="test-company">مصنع البلاستيك الحديث — دقهلية</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">«كان عندنا كمية كبيرة من رديتاتير ألمنيوم قديمة، جم في نفس اليوم وقيّموها بسرعة ودفعوا كاش. تجربة ممتازة.»</p>
+      <div class="test-author">
+        <div class="test-avatar">أ</div>
+        <div>
+          <div class="test-name">أحمد رمضان</div>
+          <div class="test-company">شركة المقاولات النموذجية</div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="test-text">«شركتنا بتتعامل معاهم من سنين، ما لقيناش تاجر تاني بنفس الاحترافية وسرعة الاستجابة. ننصح بيهم بجد.»</p>
+      <div class="test-author">
+        <div class="test-avatar">ك</div>
+        <div>
+          <div class="test-name">كريم الشرقاوي</div>
+          <div class="test-company">مجموعة الشرقاوي الصناعية</div>
+        </div>
       </div>
     </div>
   </div>
@@ -861,6 +1027,59 @@
   <div class="lb-caption" id="lbCaption"></div>
 </div>
 
+<!-- ─── FAQ ─── -->
+<section id="faq">
+  <div class="section-header reveal">
+    <div class="section-tag">أسئلة شائعة</div>
+    <h2 class="section-title">أسئلة <span>يسألها عملاؤنا</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ما الحد الأدنى للكمية التي تشترونها؟
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">لا يوجد حد أدنى — نشتري من أي كمية سواء كانت كيلوجرامات أو أطنان. تواصل معنا وسنرد عليك فورًا.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        كيف يتم تحديد سعر الخامة؟
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">السعر يُحدَّد بناءً على سعر السوق اليومي ودرجة نقاء الخامة. نقيّم أمامك بميزان معتمد وبشفافية تامة دون أي مفاجآت.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        هل تستلمون من خارج دكرنس والدقهلية؟
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">نعم، نصل إلى شركاتك ومصانعك في المحافظات المجاورة للكميات الكبيرة. تواصل معنا لترتيب موعد الزيارة.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        كم يستغرق وقت التقييم والدفع؟
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">التقييم يستغرق من 30 دقيقة إلى ساعة حسب الكمية، والدفع يتم فورًا في نفس الزيارة نقدًا أو تحويلًا بنكيًا.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        هل تشترون المواد مهما كانت حالتها؟
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">نعم، نشتري النحاس والألمنيوم القديم بجميع أحواله سواء كان صدئًا أو مكسورًا أو مختلطًا. نحن نتعامل مع الخردة بكل أنواعها.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ما طرق الدفع المتاحة؟
+        <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-a">ندفع نقدًا في الحال أو تحويلًا بنكيًا فوريًا حسب تفضيلك. نلتزم بالدفع في نفس يوم الاستلام دون أي تأخير.</div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── CONTACT ─── -->
 <section id="contact">
   <div class="section-header reveal">
@@ -896,6 +1115,17 @@
         <div>
           <div class="info-label">العنوان</div>
           <div class="info-val">دكرنس، دقهلية — مصر</div>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">🕐</div>
+        <div>
+          <div class="info-label">ساعات العمل</div>
+          <div class="info-val" style="font-size:.88rem;line-height:1.7;">
+            السبت – الخميس: ٨ صباحًا – ٦ مساءً<br/>
+            <span style="color:var(--muted);font-size:.8rem;">الجمعة: مغلق</span>
+          </div>
         </div>
       </div>
 
@@ -984,11 +1214,20 @@
         <span class="logo-sub">للخامات المعدنية</span>
       </div>
     </div>
-    <p class="footer-copy">© 2025 مكتب الإخلاص — جميع الحقوق محفوظة</p>
+    <p class="footer-copy">© 2026 مكتب الإخلاص — جميع الحقوق محفوظة</p>
     <div class="footer-links">
       <a href="#services">خدماتنا</a>
-      <a href="#about">من نحن</a>
+      <a href="#gallery">معرض الصور</a>
+      <a href="#faq">أسئلة شائعة</a>
       <a href="#contact">تواصل</a>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <a href="https://wa.me/201065029929" target="_blank"
+         style="width:38px;height:38px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:1.1rem;text-decoration:none;transition:transform .2s;"
+         onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">💬</a>
+      <a href="https://facebook.com" target="_blank"
+         style="width:38px;height:38px;border-radius:50%;background:#1877F2;display:flex;align-items:center;justify-content:center;font-size:1rem;text-decoration:none;color:#fff;font-weight:900;transition:transform .2s;"
+         onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">f</a>
     </div>
   </div>
 </footer>
@@ -1042,6 +1281,14 @@
     form.style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   });
+
+  // ─── FAQ toggle ───
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
 
   // ─── Gallery data ───
   const galleryData = [
